@@ -99,6 +99,7 @@ ymouse = mousepos(1,2);
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
 
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
+    
 end
 guidata(hObject,handles)
 
