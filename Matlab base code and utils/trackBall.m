@@ -99,7 +99,9 @@ ymouse = mousepos(1,2);
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
 
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
-    
+    sph_radius = (xlim(2) - xlim(1)) * 0.5; 
+    Calculate_M_in_sphere(sph_radius, xmouse, ymouse); 
+    disp(sph_radius)
 end
 guidata(hObject,handles)
 

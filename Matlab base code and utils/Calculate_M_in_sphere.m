@@ -1,9 +1,9 @@
 
- function [mouse_in_sph] =  Calculate_M_in_sphere(xlim)
+ function [mouse_in_sph] =  Calculate_M_in_sphere(sph_radius, xmouse, ymouse)
      
     mouse_in_sph = [0,0,0]'; 
     
-    sph_radius = (xlim(2) - xlim(1)) * 0.5; 
+    % sph_radius = (xlim(2) - xlim(1)) * 0.5; 
     
     if(xmouse*xmouse + ymouse*ymouse < shp_radius*sph_radius*0.5)
         mouse_in_sph(1) = xmouse; 
