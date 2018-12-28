@@ -12,7 +12,7 @@ function [q] = Vecs2quat (v1, v2)
  c_prod = cross(v1,v2)
  sin_2 = sin(angle * 0.5);
  cos_2 = cos(angle * 0.5);
- q = [cos_2 sin_2 * (c_prod' / norm(c_prod))]
+ q = [cos_2  sin_2 * (c_prod' / norm(c_prod))]'
  normalize(q)            
                 
 end 
