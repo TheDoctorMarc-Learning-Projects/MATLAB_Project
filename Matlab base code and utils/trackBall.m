@@ -102,6 +102,14 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     sph_radius = (xlim(2) - xlim(1)) * 0.5; 
     Calculate_M_in_sphere(sph_radius, xmouse, ymouse); 
     disp(sph_radius)
+    
+    %4 Calculate qk
+    
+    %q1 = [q(2); q(3); q(4)];
+    %qk = Vecs2quat(q1, handles.qanterior);
+    %handles.qanterior = q;
+    
+    
 end
 guidata(hObject,handles)
 
