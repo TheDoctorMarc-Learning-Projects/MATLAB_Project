@@ -96,7 +96,7 @@ mousepos=get(handles.axes1,'CurrentPoint');
 xmouse = mousepos(1,1);
 ymouse = mousepos(1,2);
 
-% calculate mouse coords in 3D sphere
+% calculate mouse in sphere
 sph_radius = (xlim(1,2) - xlim(1,1)) * 0.5
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
 
@@ -128,12 +128,9 @@ mousepos=get(handles.axes1,'CurrentPoint');
 xmouse = mousepos(1,1);
 ymouse = mousepos(1,2);
 
-% calculate mouse coords in 3D sphere
-sph_radius = (xlim(1,2) - xlim(1,1)) * 0.5
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
-     
+
     %%% DO things
-     mouse_in_sphere = Calculate_M_in_sphere(sph_radius, xmouse, ymouse) 
     % use with the proper R matrix to rotate the cube
     R = [1 0 0; 0 -1 0;0 0 -1];
     handles.Cube = RedrawCube(R,handles.Cube);
