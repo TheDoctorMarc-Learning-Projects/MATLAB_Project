@@ -98,15 +98,16 @@ ymouse = mousepos(1,2);
 
 % set an accessible last frame mouse pos, captured when clicking
 global last_mouse_in_sphere; 
-last_mouse_in_sphere = mousepos; 
 
 % calculate mouse coords in 3D sphere
 sph_radius = (xlim(1,2) - xlim(1,1)) * 0.5
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
 
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
-    %sph_radius = (xlim(2) - xlim(1)) * 0.5; 
+    
+    %calculate mouse in 3D sphere, store it in last frame mouse (for later)
     mouse_in_sphere = Calculate_M_in_sphere(sph_radius, xmouse, ymouse) 
+    last_mouse_in_sphere = mouse_in_sphere
     %4 Calculate qk
 %     
 %     q1 = [q(2); q(3); q(4)];
@@ -139,12 +140,13 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      mouse_in_sphere = Calculate_M_in_sphere(sph_radius, xmouse, ymouse) 
      
     %then obtain a quaternion with last mouse pos and this pos
-    % Vecs2quat(mouse_in_sphere, last_mouse_in_sphere); 
+    if(~isempty(last_mouse_in_sphere))
+    quaternion = Vecs2quat(mouse_in_sphere, last_mouse_in_sphere); 
+    end 
      
+     % reset last frame mouse pos once the calculations are finished 
+     last_mouse_in_sphere = mouse_in_sphere  
      
-     
-     
-     last_mouse_in_sphere = mouse_in_sphere   % reset last frame mouse pos once the calculations are finished 
     % use with the proper R matrix to rotate the cube
     R = [1 0 0; 0 -1 0;0 0 -1];
     handles.Cube = RedrawCube(R,handles.Cube);
