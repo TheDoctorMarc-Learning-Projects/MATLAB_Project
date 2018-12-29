@@ -367,7 +367,20 @@ q = q / norm(q);
      % 5) recalculate rot matrix from the actual quaternion
     % R = Quat2RotMat(actual_quaternion)'
     R = Quat2RotMat(q)'
-     handles.Cube = RedrawCube(R,handles.Cube);
+    
+    % actualize rotation matrix in GUI 
+     set(handles.Matrix_1, 'String', R(1,1)); 
+     set(handles.Matrix_2, 'String', R(1,2)); 
+     set(handles.Matrix_3, 'String', R(1,3)); 
+     set(handles.Matrix_4, 'String', R(2,1)); 
+     set(handles.Matrix_5, 'String', R(2,2)); 
+     set(handles.Matrix_6, 'String', R(2,3)); 
+     set(handles.Matrix_7, 'String', R(3,1)); 
+     set(handles.Matrix_8, 'String', R(3,2)); 
+     set(handles.Matrix_9, 'String', R(3,3)); 
+     
+     
+    handles.Cube = RedrawCube(R,handles.Cube);
 
 
 
