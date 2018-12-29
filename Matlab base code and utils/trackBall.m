@@ -22,7 +22,7 @@ function varargout = trackBall(varargin)
 
 % Edit the above text to modify the response to help trackBall
 
-% Last Modified by GUIDE v2.5 24-Nov-2016 11:52:15
+% Last Modified by GUIDE v2.5 29-Dec-2018 15:53:17
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -99,7 +99,7 @@ ymouse = mousepos(1,2);
 % calculate sphere radius 
 global sph_radius; 
 % sph_radius = (xlim(1,2) - xlim(1,1)) * 0.5
-sph_radius = 1; 
+sph_radius = 2; 
 
 
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
@@ -245,3 +245,108 @@ for q = 1:6
     h(q).Vertices = [x(:,q) y(:,q) z(:,q)];
     h(q).FaceColor = c(q,:);
 end
+
+
+
+function quat_1_Callback(hObject, eventdata, handles)
+% hObject    handle to quat_1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of quat_1 as text
+%        str2double(get(hObject,'String')) returns contents of quat_1 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function quat_1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to quat_1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function quat_2_Callback(hObject, eventdata, handles)
+% hObject    handle to quat_2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of quat_2 as text
+%        str2double(get(hObject,'String')) returns contents of quat_2 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function quat_2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to quat_2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function quat_3_Callback(hObject, eventdata, handles)
+% hObject    handle to quat_3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of quat_3 as text
+%        str2double(get(hObject,'String')) returns contents of quat_3 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function quat_3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to quat_3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function quat_4_Callback(hObject, eventdata, handles)
+% hObject    handle to quat_4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of quat_4 as text
+%        str2double(get(hObject,'String')) returns contents of quat_4 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function quat_4_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to quat_4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in quat_button.
+function quat_button_Callback(hObject, eventdata, handles)
+% hObject    handle to quat_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+q = [666 0 0 0]'
+string = get(handles.quat_1,'String')
+q = [str2num(string) 0 0 0]'
+
+

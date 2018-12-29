@@ -8,8 +8,8 @@
         mouse_in_sph(2) = ymouse; 
         mouse_in_sph(3) =(sph_radius*sph_radius - xmouse*xmouse - ymouse*ymouse).^0.5; 
     else 
-         module =(sph_radius*sph_radius) / 2 * ((xmouse*xmouse + ymouse*ymouse).^0.5);
+         module = (sph_radius*sph_radius) / 2 * ((xmouse*xmouse + ymouse*ymouse).^0.5)
          norm_coords = [xmouse, ymouse, module]';                           % check this out
-         mouse_in_sph = norm_coords / norm(norm_coords); 
+         mouse_in_sph = (sph_radius * norm_coords / norm(norm_coords)) 
     end 
  end 
