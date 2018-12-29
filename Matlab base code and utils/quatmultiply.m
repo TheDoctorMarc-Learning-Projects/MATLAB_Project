@@ -13,10 +13,10 @@ function [t] = quatmultiply(q, r)
 %
 %  EXAMPLE: t = quatmultiply([1,0,0,0], [0.5,0.5,0.5,0.5])
 
-% 
-% %if size(q,2)~=4 || size(r,2)~=4 || size(q,2)~=size(r,2)
-%     disp('Error: input arrays must both be of dimension mx4.');
-% else
+
+if size(q,2)~=4 || size(r,2)~=4 || size(q,2)~=size(r,2)
+    disp('Error: input arrays must both be of dimension mx4.');
+else
     numSamples = size(q,1);
     t = zeros(numSamples,4);
     for n = 1:numSamples

@@ -146,7 +146,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
     quaternion = Vecs2quat(mouse_in_sphere, last_mouse_in_sphere) 
     end 
      
-     % 3) compose this frame and last frame quaternions
+     % 3) compose this and last frame quats ---> "actual quaternion"
       if(~isempty(last_quaternion))
      actual_quaternion = quatmultiply(quaternion', last_quaternion')'
       end 
@@ -156,11 +156,11 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      % 4) reset last frame mouse pos once the calculations are finished 
      last_mouse_in_sphere = mouse_in_sphere  
      
-     % 5) recalculate rot matrix from the quaternion
-     
+     % 5) recalculate rot matrix from the actual quaternion
+     R = Quat2RotMat(actual_quaternion)
      
     % 6) use with the proper R matrix to rotate the cube
-    R = [1 0 0; 0 -1 0;0 0 -1];
+    %R = [1 0 0; 0 -1 0;0 0 -1];
     handles.Cube = RedrawCube(R,handles.Cube);
     
 end
