@@ -415,10 +415,8 @@ function [] = Update_All_Parametrizations_from_Quaternion(q, handles)
         % quat to angles
         
         angles = Quat_to_Euler_Angles(q)
-        angles = angles * 180 / pi
-        set(handles.angles_1, 'String', angles(1)); 
-        set(handles.angles_2, 'String', angles(2)); 
-        set(handles.angles_3, 'String', angles(3));
+        
+        
         
         
         % quat to rotation vector
@@ -499,7 +497,6 @@ a_1 = get(handles.angles_1,'String')
 a_2 = get(handles.angles_2,'String')
 a_3 = get(handles.angles_3,'String')
 angles = [str2num(a_1) str2num(a_2) str2num(a_3)]; 
-angles = angles * pi / 180
 
 q = Euler_Angles_to_Quat(angles); 
 
