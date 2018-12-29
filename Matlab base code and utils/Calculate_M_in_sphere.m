@@ -10,6 +10,6 @@
     else 
          module =(sph_radius*sph_radius) / 2 * ((xmouse*xmouse + ymouse*ymouse).^0.5);
          norm_coords = [xmouse, ymouse, module]';                           % check this out
-         mouse_in_sph = mouse_in_sph / norm(norm_coords); 
+         mouse_in_sph = norm_coords / norm(norm_coords); 
     end 
  end 

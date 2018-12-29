@@ -128,7 +128,7 @@ ylim = get(handles.axes1,'ylim');
 mousepos=get(handles.axes1,'CurrentPoint');
 xmouse = mousepos(1,1);
 ymouse = mousepos(1,2);
-
+this_quaternion = zeros(4); 
 
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      
@@ -137,16 +137,16 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
   
     % 2) then obtain a quaternion with last mouse pos and this pos
     if(~isempty(last_mouse_in_sphere))
-    quaternion = Vecs2quat(mouse_in_sphere, last_mouse_in_sphere) 
+    this_quaternion = Vecs2quat(mouse_in_sphere, last_mouse_in_sphere) 
     end 
      
      % 3) compose this and last frame quats ---> "actual quaternion"
       if(~isempty(last_quaternion))
-     actual_quaternion = quatmultiply(quaternion', last_quaternion')'
+     actual_quaternion = quatmultiply(this_quaternion', last_quaternion')'
       end 
       
      % 4) reset last frame quaternion once the calculations are finished 
-     last_quaternion = quaternion
+     last_quaternion = this_quaternion
      % 4) reset last frame mouse pos once the calculations are finished 
      last_mouse_in_sphere = mouse_in_sphere  
      
