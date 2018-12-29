@@ -22,7 +22,7 @@ function varargout = trackBall(varargin)
 
 % Edit the above text to modify the response to help trackBall
 
-% Last Modified by GUIDE v2.5 29-Dec-2018 15:53:17
+% Last Modified by GUIDE v2.5 29-Dec-2018 18:08:47
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -346,9 +346,9 @@ end
 % button
 function [] = Do_Rotation(q, handles)
 
-global actual_quaternion;  
-global last_quaternion; 
-global this_quaternion; 
+% global actual_quaternion;  
+% global last_quaternion; 
+% global this_quaternion; 
 
 q = q / norm(q); 
 % 
@@ -392,6 +392,132 @@ if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
     
 end 
 
+% --- Executes on button press in axis_angle_button.
+function axis_angle_button_Callback(hObject, eventdata, handles)
+% hObject    handle to axis_angle_button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global actual_quaternion; 
+
+q = [0 0 0 0]'; 
+
+angle = get(handles.axis_angle_0,'String'); 
+a_1 = get(handles.axis_angle_1,'String'); 
+a_2 = get(handles.axis_angle_2,'String'); 
+a_3 = get(handles.axis_angle_3,'String'); 
+
+axis = [str2num(a_1) str2num(a_2) str2num(a_3)]
+axis = axis / norm(axis) 
+real_angle = str2num(angle)*pi/180; 
+%axis_angle = [axis real_angle]
+
+%q = axang2quat(axis_angle)'; 
+q = AxisAngle_to_Quat(axis, real_angle)
+ 
+ if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
+    actual_quaternion = q
+    Do_Rotation(q, handles); 
+    
+ end 
+ 
+ 
+ 
+ 
 
 
 
+
+
+
+
+
+
+function axis_angle_3_Callback(hObject, eventdata, handles)
+% hObject    handle to axis_angle_3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of axis_angle_3 as text
+%        str2double(get(hObject,'String')) returns contents of axis_angle_3 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function axis_angle_3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to axis_angle_3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function axis_angle_2_Callback(hObject, eventdata, handles)
+% hObject    handle to axis_angle_2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of axis_angle_2 as text
+%        str2double(get(hObject,'String')) returns contents of axis_angle_2 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function axis_angle_2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to axis_angle_2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function axis_angle_1_Callback(hObject, eventdata, handles)
+% hObject    handle to axis_angle_1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of axis_angle_1 as text
+%        str2double(get(hObject,'String')) returns contents of axis_angle_1 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function axis_angle_1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to axis_angle_1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function axis_angle_0_Callback(hObject, eventdata, handles)
+% hObject    handle to axis_angle_0 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of axis_angle_0 as text
+%        str2double(get(hObject,'String')) returns contents of axis_angle_0 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function axis_angle_0_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to axis_angle_0 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
