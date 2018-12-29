@@ -154,7 +154,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      
      
      % 5) recalculate rot matrix from the actual quaternion
-     R = Quat2RotMat(actual_quaternion)
+     R = Quat2RotMat(actual_quaternion)'
      handles.Cube = RedrawCube(R,handles.Cube);
     
 end
