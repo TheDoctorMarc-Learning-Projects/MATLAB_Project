@@ -122,8 +122,7 @@ global actual_quaternion;
 global last_mouse_in_sphere;  
 global last_quaternion; 
 global sph_radius; 
-global this_quaternion; 
-global mouse_in_sphere; 
+
 
 handles=guidata(obj);
 xlim = get(handles.axes1,'xlim');
@@ -341,42 +340,12 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-
-% call this function when you have a quaternion, previously calculated from any push
-% button
-function [] = Do_Rotation(q, handles)
-
-global actual_quaternion;  
-global last_quaternion; 
-global this_quaternion; 
-
-q = q / norm(q); 
-% 
-% this_quaternion = q; 
-% %   3) compose this and last frame quats ---> "actual quaternion"
-%       if(~isempty(last_quaternion))
-%      actual_quaternion = quatmultiply(this_quaternion', last_quaternion')'
-%       end 
-%       
-% %      4) reset last frame quaternion once the calculations are finished 
-%      last_quaternion = this_quaternion
-%  
-%      % (transform the quaternion to other parametrizations)  
-%      
-     
-     % 5) recalculate rot matrix from the actual quaternion
-    % R = Quat2RotMat(actual_quaternion)'
-    R = Quat2RotMat(q)'
-     handles.Cube = RedrawCube(R,handles.Cube);
-
-
-
-
 % --- Executes on button press in quat_button.
 function quat_button_Callback(hObject, eventdata, handles)
 % hObject    handle to quat_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA) 
+% handles    structure with handles and user data (see GUIDATA)
+global push_button_calls; 
 global actual_quaternion; 
 
 q = [0 0 0 0]'; 
@@ -388,9 +357,17 @@ q = [str2num(s_1) str2num(s_2) str2num(s_3) str2num(s_4)]';
 
 if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
     actual_quaternion = q
-    Do_Rotation(q, handles) 
+    push_button_calls = 1
     
 end 
+
+% call this function when you have a quaternion, previously calculated from any push
+% button
+function [quat] = Do_Rotation(q)
+
+
+
+
 
 
 
