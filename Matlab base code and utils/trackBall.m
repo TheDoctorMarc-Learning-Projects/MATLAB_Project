@@ -52,6 +52,10 @@ function trackBall_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to trackBall (see VARARGIN)
 
+%testing 
+global last_quaternion;  
+last_quaternion = [999 0 0 0]; 
+
 
 set(hObject,'WindowButtonDownFcn',{@my_MouseClickFcn,handles.axes1});
 set(hObject,'WindowButtonUpFcn',{@my_MouseReleaseFcn,handles.axes1});
@@ -123,6 +127,7 @@ global last_quaternion;
 global sph_radius; 
 global this_quaternion; 
 global mouse_in_sphere; 
+global delta_quat; 
 
 handles=guidata(obj);
 xlim = get(handles.axes1,'xlim');
@@ -138,17 +143,31 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      mouse_in_sphere = Calculate_M_in_sphere(sph_radius, xmouse, ymouse) 
   
     % 2) then obtain a quaternion with last mouse pos and this pos
-    if(~isempty(last_mouse_in_sphere))
-    this_quaternion = Vecs2quat(mouse_in_sphere, last_mouse_in_sphere) 
-    end 
-     
+    this_quaternion = Vecs2quat(mouse_in_sphere, last_mouse_in_sphere)
+    
+    
      % 3) compose this and last frame quats ---> "actual quaternion"
-      if(~isempty(last_quaternion))
-     actual_quaternion = quatmultiply(this_quaternion', last_quaternion')'
-      end 
+     if(last_quaternion(1) == 999) 
+         last_quaternion = this_quaternion
+     else 
+         % calculate delta quat 
+    delta_quat(1) = this_quaternion(1) - last_quaternion(1)
+    delta_quat(2) = this_quaternion(2) - last_quaternion(2) 
+    delta_quat(3) = this_quaternion(3) - last_quaternion(3) 
+    delta_quat(4) = this_quaternion(4) - last_quaternion(4) 
       
-     % 4) reset last frame quaternion once the calculations are finished 
-     last_quaternion = this_quaternion
+     if(delta_quat < 0.3)
+         actual_quaternion = this_quaternion; 
+     else 
+     actual_quaternion = quatmultiply(delta_quat, last_quaternion')'
+           % 4) reset last frame quaternion once the calculations are finished 
+     last_quaternion = actual_quaternion
+     end 
+     
+     
+     end 
+     
+    
      % 4) reset last frame mouse pos once the calculations are finished 
      last_mouse_in_sphere = mouse_in_sphere  
  
@@ -505,7 +524,7 @@ a_3 = get(handles.angles_3,'String')
 angles = [str2num(a_1) str2num(a_2) str2num(a_3)]; 
 angles = angles * pi / 180
 
-q = Euler_Angles_to_Quat(angles); 
+q = Euler_Angles_to_Quat(angles) 
 
 % Update all other parametrizations 
 Update_All_Parametrizations_from_Quaternion(q,handles, 3); 
@@ -528,6 +547,18 @@ Update_All_Parametrizations_from_Quaternion(q,handles, 3);
 
 
 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 
 
