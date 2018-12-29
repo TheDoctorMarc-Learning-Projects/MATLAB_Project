@@ -397,10 +397,7 @@ q = q / norm(q);
 function [] = Update_All_Parametrizations_from_Quaternion(q, handles)
         
         % (update quaternion in GUI) 
-         set(handles.quat_1, 'String', q(1)); 
-         set(handles.quat_2, 'String', q(2)); 
-         set(handles.quat_3, 'String', q(3)); 
-         set(handles.quat_4, 'String', q(4)); 
+        
 
         % quat to axis angle
         
@@ -428,10 +425,6 @@ s_3 = get(handles.quat_3,'String');
 s_4 = get(handles.quat_4,'String'); 
 q = [str2num(s_1) str2num(s_2) str2num(s_3) str2num(s_4)]'; 
 
-% Update all other parametrizations 
-Update_All_Parametrizations_from_Quaternion(q,handles); 
-
-% Rotate cube 
 if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
     actual_quaternion = q
     Do_Rotation(q, handles) 
@@ -457,12 +450,7 @@ axis = axis / norm(axis)
 real_angle = str2num(angle)*pi/180; 
  
 q = AxisAngle_to_Quat(axis, real_angle)
-
-% Update all other parametrizations 
-Update_All_Parametrizations_from_Quaternion(q,handles); 
-
-
-% Rotate cube 
+ 
  if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
     actual_quaternion = q
     Do_Rotation(q, handles); 
