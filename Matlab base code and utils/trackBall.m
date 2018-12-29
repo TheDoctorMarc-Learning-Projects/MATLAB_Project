@@ -394,15 +394,18 @@ q = q / norm(q);
     handles.Cube = RedrawCube(R,handles.Cube);
 
 
-function [] = Update_All_Parametrizations_from_Quaternion(q, handles)
+function [] = Update_All_Parametrizations_from_Quaternion(q, handles, flag)
         
-        % (update quaternion in GUI) 
+        % 1) update quaternion in GUI) 
+        if(flag ~= 1)
          set(handles.quat_1, 'String', q(1)); 
          set(handles.quat_2, 'String', q(2)); 
          set(handles.quat_3, 'String', q(3)); 
          set(handles.quat_4, 'String', q(4)); 
+        end 
 
-        % quat to axis angle
+        % 2) quat to axis angle
+        if(flag ~= 2)
         [axis, angle] = Quat_to_AxisAngle(q)
         axis = axis / norm(axis)
         angle = angle * 180 / pi
@@ -411,17 +414,18 @@ function [] = Update_All_Parametrizations_from_Quaternion(q, handles)
          set(handles.axis_angle_1, 'String', axis(1)); 
          set(handles.axis_angle_2, 'String', axis(2)); 
          set(handles.axis_angle_3, 'String', axis(3)); 
-         
-        % quat to angles
+        end 
         
+        % 3) quat to angles
+         if(flag ~= 3)
         angles = Quat_to_Euler_Angles(q)
         angles = angles * 180 / pi
         set(handles.angles_1, 'String', angles(1)); 
         set(handles.angles_2, 'String', angles(2)); 
         set(handles.angles_3, 'String', angles(3));
+         end 
         
-        
-        % quat to rotation vector
+        % 4) quat to rotation vector
         
         
         
@@ -442,7 +446,7 @@ s_4 = get(handles.quat_4,'String');
 q = [str2num(s_1) str2num(s_2) str2num(s_3) str2num(s_4)]'; 
 
 % Update all other parametrizations 
-Update_All_Parametrizations_from_Quaternion(q,handles); 
+Update_All_Parametrizations_from_Quaternion(q,handles, 1); 
 
 % Rotate cube 
 if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
@@ -472,7 +476,7 @@ real_angle = str2num(angle)*pi/180;
 q = AxisAngle_to_Quat(axis, real_angle)
 
 % Update all other parametrizations 
-Update_All_Parametrizations_from_Quaternion(q,handles); 
+Update_All_Parametrizations_from_Quaternion(q,handles, 2); 
 
 
 % Rotate cube 
@@ -504,7 +508,7 @@ angles = angles * pi / 180
 q = Euler_Angles_to_Quat(angles); 
 
 % Update all other parametrizations 
-Update_All_Parametrizations_from_Quaternion(q,handles); 
+Update_All_Parametrizations_from_Quaternion(q,handles, 3); 
 
 
 % Rotate cube 
