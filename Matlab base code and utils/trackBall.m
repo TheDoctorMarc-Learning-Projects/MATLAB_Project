@@ -96,24 +96,18 @@ mousepos=get(handles.axes1,'CurrentPoint');
 xmouse = mousepos(1,1);
 ymouse = mousepos(1,2);
 
-% set an accessible last frame mouse pos, captured when clicking
-global last_mouse_in_sphere; 
+% calculate sphere radius 
+global sph_radius; 
+% sph_radius = (xlim(1,2) - xlim(1,1)) * 0.5
+sph_radius = 1; 
 
-% calculate mouse coords in 3D sphere
-sph_radius = (xlim(1,2) - xlim(1,1)) * 0.5
+
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
 
     set(handles.figure1,'WindowButtonMotionFcn',{@my_MouseMoveFcn,hObject});
     
-    %calculate mouse in 3D sphere, store it in last frame mouse (for later)
+    %calculate mouse in 3D sphere
     mouse_in_sphere = Calculate_M_in_sphere(sph_radius, xmouse, ymouse) 
-    last_mouse_in_sphere = mouse_in_sphere
-    %4 Calculate qk
-%     
-%     q1 = [q(2); q(3); q(4)];
-%     qk = Vecs2quat(q1, handles.qanterior);
-%     handles.qanterior = q;
-    
     
 end
 guidata(hObject,handles)
@@ -124,8 +118,9 @@ set(handles.figure1,'WindowButtonMotionFcn','');
 guidata(hObject,handles);
 
 function my_MouseMoveFcn(obj,event,hObject)
-global last_mouse_in_sphere;    % have the last frame mouse pos accessible here again 
+global last_mouse_in_sphere;  
 global last_quaternion; 
+global sph_radius; 
 
 handles=guidata(obj);
 xlim = get(handles.axes1,'xlim');
@@ -135,12 +130,11 @@ xmouse = mousepos(1,1);
 ymouse = mousepos(1,2);
 
 
-sph_radius = (xlim(1,2) - xlim(1,1)) * 0.5
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      
     % 1) first calculate mouse in sphere
      mouse_in_sphere = Calculate_M_in_sphere(sph_radius, xmouse, ymouse) 
-     
+  
     % 2) then obtain a quaternion with last mouse pos and this pos
     if(~isempty(last_mouse_in_sphere))
     quaternion = Vecs2quat(mouse_in_sphere, last_mouse_in_sphere) 
@@ -156,12 +150,12 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      % 4) reset last frame mouse pos once the calculations are finished 
      last_mouse_in_sphere = mouse_in_sphere  
      
+     % (transform the quaternion to other parametrizations)  
+     
+     
      % 5) recalculate rot matrix from the actual quaternion
      R = Quat2RotMat(actual_quaternion)
-     
-    % 6) use with the proper R matrix to rotate the cube
-    %R = [1 0 0; 0 -1 0;0 0 -1];
-    handles.Cube = RedrawCube(R,handles.Cube);
+     handles.Cube = RedrawCube(R,handles.Cube);
     
 end
 guidata(hObject,handles);
