@@ -403,8 +403,14 @@ function [] = Update_All_Parametrizations_from_Quaternion(q, handles)
          set(handles.quat_4, 'String', q(4)); 
 
         % quat to axis angle
+        [axis, angle] = Quat_to_AxisAngle(q)
+        angle = angle * 180 / pi
         
-        
+         set(handles.axis_angle_0, 'String', angle); 
+         set(handles.axis_angle_1, 'String', axis(1)); 
+         set(handles.axis_angle_2, 'String', axis(2)); 
+         set(handles.axis_angle_3, 'String', axis(3)); 
+         
         % quat to angles
         
         
