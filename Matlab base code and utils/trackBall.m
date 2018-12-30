@@ -99,7 +99,11 @@ ymouse = mousepos(1,2);
 % the sphere that conatins the cube's radius:  
 global sph_radius; 
 sph_radius = 1; 
+
+% when clicking, last quaternion is considered nule 
 global this_quaternion; 
+global last_quaternion; 
+last_quaternion = zeros(4); 
 
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
 
