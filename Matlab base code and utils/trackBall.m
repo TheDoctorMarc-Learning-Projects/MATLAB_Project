@@ -98,7 +98,7 @@ ymouse = mousepos(1,2);
 
 % the sphere that conatins the cube's radius:  
 global sph_radius; 
-sph_radius = 1; 
+sph_radius = 2; 
 
 % when clicking, last quaternion is considered nule 
 global this_quaternion; 
@@ -361,29 +361,27 @@ end
 % button
 function [] = Do_Rotation(q, handles)
 
-% global actual_quaternion;  
-% global last_quaternion; 
-% global this_quaternion; 
+ global last_quaternion; 
+ global this_quaternion; 
 
 q = q / norm(q); 
-% 
-% this_quaternion = q; 
-% %   3) compose this and last frame quats ---> "actual quaternion"
-%       if(~isempty(last_quaternion))
-%      actual_quaternion = quatmultiply(this_quaternion', last_quaternion')'
-%       end 
-%       
-% %      4) reset last frame quaternion once the calculations are finished 
-%      last_quaternion = this_quaternion
-%  
-%      % (transform the quaternion to other parametrizations)  
-%      
+
+this_quaternion = q; 
+
+     % 3) compose this and last frame quats ---> "actual quaternion"
+      if(last_quaternion(1) ~= 0 && last_quaternion(2) ~= 0 && last_quaternion(3) ~= 0 && last_quaternion(4) ~= 0  )
+     this_quaternion = quatmultiply(this_quaternion', last_quaternion')'
+      end 
+      
+     % 4) reset last frame quaternion once the calculations are finished 
+     last_quaternion = this_quaternion
      
      % 5) recalculate rot matrix from the actual quaternion
-    % R = Quat2RotMat(actual_quaternion)'
-    R = Quat2RotMat(q)'
-    
-    % actualize rotation matrix in GUI 
+     R = Quat2RotMat(this_quaternion)
+     handles.Cube = RedrawCube(R,handles.Cube);
+     
+     
+       % actualize rotation matrix in GUI 
      set(handles.Matrix_1, 'String', R(1,1)); 
      set(handles.Matrix_2, 'String', R(1,2)); 
      set(handles.Matrix_3, 'String', R(1,3)); 
@@ -393,9 +391,6 @@ q = q / norm(q);
      set(handles.Matrix_7, 'String', R(3,1)); 
      set(handles.Matrix_8, 'String', R(3,2)); 
      set(handles.Matrix_9, 'String', R(3,3)); 
-     
-     
-    handles.Cube = RedrawCube(R,handles.Cube);
 
 
 function [] = Update_All_Parametrizations_from_Quaternion(q, handles, flag)
