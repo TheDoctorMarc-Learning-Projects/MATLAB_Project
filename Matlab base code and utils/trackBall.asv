@@ -534,14 +534,16 @@ vector = [str2num(s_1) str2num(s_2) str2num(s_3)];
 vector = vector / norm(vector); 
 
 
-q = Vecs2quat(vector', last_quaternion(2:4))
+q = Vecs2quat(vector', [1 1 1]')
+
+this_quaternion = quatmultiply(q',last_quaternion')'
 % Update all other parametrizations 
-Update_All_Parametrizations_from_Quaternion(q,handles, 0); 
+Update_All_Parametrizations_from_Quaternion(this_quaternion,handles, 0); 
 
 
 % Rotate cube 
  if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
-    this_quaternion = q
+    %actual_quaternion = q
     Do_Rotation(this_quaternion, handles); 
 
  end 
