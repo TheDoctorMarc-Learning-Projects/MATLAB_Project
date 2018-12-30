@@ -103,7 +103,9 @@ sph_radius = 2;
 % when clicking, last quaternion is considered nule 
 global this_quaternion; 
 global last_quaternion; 
-last_quaternion = zeros(4); 
+
+%last_quaternion = zeros(4); 
+last_quaternion = this_quaternion; 
 
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
 
@@ -534,16 +536,14 @@ vector = [str2num(s_1) str2num(s_2) str2num(s_3)];
 vector = vector / norm(vector); 
 
 
-q = Vecs2quat(vector', [1 1 1]')
-
-this_quaternion = quatmultiply(q',last_quaternion')'
+q = Vecs2quat(vector', last_quaternion(2:4))
 % Update all other parametrizations 
-Update_All_Parametrizations_from_Quaternion(this_quaternion,handles, 0); 
+Update_All_Parametrizations_from_Quaternion(q,handles, 0); 
 
 
 % Rotate cube 
  if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
-    %actual_quaternion = q
+    this_quaternion = q
     Do_Rotation(this_quaternion, handles); 
 
  end 
@@ -554,6 +554,36 @@ function reset_button_Callback(hObject, eventdata, handles)
 % hObject    handle to reset_button (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+         set(handles.quat_1, 'String', 'value'); 
+         set(handles.quat_2, 'String', 'value'); 
+         set(handles.quat_3, 'String', 'value'); 
+         set(handles.quat_4, 'String', 'value'); 
+     
+         set(handles.axis_angle_0, 'String', 'value'); 
+         set(handles.axis_angle_1, 'String', 'value'); 
+         set(handles.axis_angle_2, 'String', 'value'); 
+         set(handles.axis_angle_3, 'String','value'); 
+    
+         set(handles.angles_1, 'String', 'value'); 
+         set(handles.angles_2, 'String', 'value'); 
+         set(handles.angles_3, 'String', 'value');
+
+          set(handles.Matrix_1, 'String', R(1,1)); 
+     set(handles.Matrix_2, 'String', R(1,2)); 
+     set(handles.Matrix_3, 'String', R(1,3)); 
+     set(handles.Matrix_4, 'String', R(2,1)); 
+     set(handles.Matrix_5, 'String', R(2,2)); 
+     set(handles.Matrix_6, 'String', R(2,3)); 
+     set(handles.Matrix_7, 'String', R(3,1)); 
+     set(handles.Matrix_8, 'String', R(3,2)); 
+     set(handles.Matrix_9, 'String', R(3,3)); 
+
+
+% reposition cube 
+
+
 
 
  

@@ -555,6 +555,57 @@ function reset_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+ % reset GUI
+         set(handles.quat_1, 'String', 'value'); 
+         set(handles.quat_2, 'String', 'value'); 
+         set(handles.quat_3, 'String', 'value'); 
+         set(handles.quat_4, 'String', 'value'); 
+     
+         set(handles.axis_angle_0, 'String', 'value'); 
+         set(handles.axis_angle_1, 'String', 'value'); 
+         set(handles.axis_angle_2, 'String', 'value'); 
+         set(handles.axis_angle_3, 'String','value'); 
+    
+         set(handles.angles_1, 'String', 'value'); 
+         set(handles.angles_2, 'String', 'value'); 
+         set(handles.angles_3, 'String', 'value');
+         
+         set(handles.vector_1, 'String', 'value'); 
+         set(handles.vector_2, 'String', 'value'); 
+         set(handles.vector_3, 'String', 'value');
+         
+     set(handles.Matrix_1, 'String', 'value'); 
+     set(handles.Matrix_2, 'String', 'value'); 
+     set(handles.Matrix_3, 'String', 'value'); 
+     set(handles.Matrix_4, 'String', 'value'); 
+     set(handles.Matrix_5, 'String', 'value'); 
+     set(handles.Matrix_6, 'String', 'value'); 
+     set(handles.Matrix_7, 'String', 'value'); 
+     set(handles.Matrix_8, 'String', 'value'); 
+     set(handles.Matrix_9, 'String', 'value'); 
+     
+     
+     % reposition cube 
+     R = eye(3)
+     
+ 
+    handles.Cube=RedrawCube(R,handles.Cube);
+     
+     
+      
+
+    
+     
+     
+     
+     
+     
+  
+
+
+
+
+
 
  
 
