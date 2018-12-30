@@ -98,7 +98,7 @@ ymouse = mousepos(1,2);
 
 % the sphere that conatins the cube's radius:  
 global sph_radius; 
-sph_radius = 2; 
+sph_radius = 1; 
 
 
 if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
@@ -117,7 +117,6 @@ set(handles.figure1,'WindowButtonMotionFcn','');
 guidata(hObject,handles);
 
 function my_MouseMoveFcn(obj,event,hObject)
-global actual_quaternion; 
 global last_mouse_in_sphere;  
 global last_quaternion; 
 global sph_radius; 
@@ -144,7 +143,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      
      % 3) compose this and last frame quats ---> "actual quaternion"
       if(~isempty(last_quaternion))
-     actual_quaternion = quatmultiply(this_quaternion', last_quaternion')'
+     this_quaternion = quatmultiply(this_quaternion', last_quaternion')'
       end 
       
      % 4) reset last frame quaternion once the calculations are finished 
@@ -156,7 +155,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      
      
      % 5) recalculate rot matrix from the actual quaternion
-     R = Quat2RotMat(actual_quaternion)'
+     R = Quat2RotMat(this_quaternion)
      handles.Cube = RedrawCube(R,handles.Cube);
      
      
