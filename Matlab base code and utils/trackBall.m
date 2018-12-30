@@ -98,7 +98,7 @@ ymouse = mousepos(1,2);
 
 % the sphere that conatins the cube's radius:  
 global sph_radius; 
-sph_radius = 2; 
+sph_radius = 5; 
 
 % when clicking, last quaternion is considered nule 
 global this_quaternion; 
@@ -164,7 +164,6 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
      % 5) recalculate rot matrix from the actual quaternion
      R = Quat2RotMat(this_quaternion)
      handles.Cube = RedrawCube(R,handles.Cube);
-     
      
        % actualize rotation matrix in GUI 
      set(handles.Matrix_1, 'String', R(1,1)); 
@@ -425,6 +424,23 @@ function [] = Update_All_Parametrizations_from_Quaternion(q, handles, flag)
         set(handles.angles_2, 'String', angles(2)); 
         set(handles.angles_3, 'String', angles(3));
          end 
+         
+         
+         
+         
+         if(flag ~= 4) 
+         
+        [axis, angle] = Quat_to_AxisAngle(q)
+        vec = Axis_Angle_to_Rot_Vec(axis,angle) 
+        
+        set(handles.vector_1, 'String', vec(1)); 
+        set(handles.vector_2, 'String', vec(2)); 
+        set(handles.vector_3, 'String', vec(3)); 
+             
+         end 
+         
+         
+         
         
         % 4) quat to rotation vector
         
@@ -511,7 +527,7 @@ Update_All_Parametrizations_from_Quaternion(q,handles, 3);
 
 % Rotate cube 
  if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
-    actual_quaternion = q
+    this_quaternion = q
     Do_Rotation(q, handles); 
 
  end 
@@ -538,7 +554,7 @@ vector = vector / norm(vector);
 
 q = Vecs2quat(vector', last_quaternion(2:4))
 % Update all other parametrizations 
-Update_All_Parametrizations_from_Quaternion(q,handles, 0); 
+Update_All_Parametrizations_from_Quaternion(q,handles, 4); 
 
 
 % Rotate cube 

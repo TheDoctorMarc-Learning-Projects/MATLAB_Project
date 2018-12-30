@@ -98,7 +98,7 @@ ymouse = mousepos(1,2);
 
 % the sphere that conatins the cube's radius:  
 global sph_radius; 
-sph_radius = 2; 
+sph_radius = 10; 
 
 % when clicking, last quaternion is considered nule 
 global this_quaternion; 
@@ -425,6 +425,10 @@ function [] = Update_All_Parametrizations_from_Quaternion(q, handles, flag)
         set(handles.angles_2, 'String', angles(2)); 
         set(handles.angles_3, 'String', angles(3));
          end 
+         
+         
+         
+         v = rotationMatrixToVector(R)
         
         % 4) quat to rotation vector
         
@@ -511,7 +515,7 @@ Update_All_Parametrizations_from_Quaternion(q,handles, 3);
 
 % Rotate cube 
  if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
-    actual_quaternion = q
+    this_quaternion = q
     Do_Rotation(q, handles); 
 
  end 
@@ -555,7 +559,7 @@ function reset_button_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-
+ % reset GUI
          set(handles.quat_1, 'String', 'value'); 
          set(handles.quat_2, 'String', 'value'); 
          set(handles.quat_3, 'String', 'value'); 
@@ -569,19 +573,40 @@ function reset_button_Callback(hObject, eventdata, handles)
          set(handles.angles_1, 'String', 'value'); 
          set(handles.angles_2, 'String', 'value'); 
          set(handles.angles_3, 'String', 'value');
+         
+         set(handles.vector_1, 'String', 'value'); 
+         set(handles.vector_2, 'String', 'value'); 
+         set(handles.vector_3, 'String', 'value');
+         
+     set(handles.Matrix_1, 'String', 'value'); 
+     set(handles.Matrix_2, 'String', 'value'); 
+     set(handles.Matrix_3, 'String', 'value'); 
+     set(handles.Matrix_4, 'String', 'value'); 
+     set(handles.Matrix_5, 'String', 'value'); 
+     set(handles.Matrix_6, 'String', 'value'); 
+     set(handles.Matrix_7, 'String', 'value'); 
+     set(handles.Matrix_8, 'String', 'value'); 
+     set(handles.Matrix_9, 'String', 'value'); 
+     
+     
+     % reposition cube 
+     R = eye(3)
+     
+ 
+    handles.Cube=RedrawCube(R,handles.Cube);
+     
+     
+      
 
-          set(handles.Matrix_1, 'String', R(1,1)); 
-     set(handles.Matrix_2, 'String', R(1,2)); 
-     set(handles.Matrix_3, 'String', R(1,3)); 
-     set(handles.Matrix_4, 'String', R(2,1)); 
-     set(handles.Matrix_5, 'String', R(2,2)); 
-     set(handles.Matrix_6, 'String', R(2,3)); 
-     set(handles.Matrix_7, 'String', R(3,1)); 
-     set(handles.Matrix_8, 'String', R(3,2)); 
-     set(handles.Matrix_9, 'String', R(3,3)); 
+    
+     
+     
+     
+     
+     
+  
 
 
-% reposition cube 
 
 
 
