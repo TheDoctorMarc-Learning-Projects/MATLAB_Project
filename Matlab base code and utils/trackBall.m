@@ -145,7 +145,7 @@ if xmouse > xlim(1) && xmouse < xlim(2) && ymouse > ylim(1) && ymouse < ylim(2)
   
     % 2) then obtain a quaternion with last mouse pos and this pos
     if(~isempty(last_mouse_in_sphere))
-    this_quaternion = Vecs2quat(mouse_in_sphere, last_mouse_in_sphere) 
+    this_quaternion = Vecs2quat(last_mouse_in_sphere, mouse_in_sphere) 
     end 
      
      % 3) compose this and last frame quats ---> "actual quaternion"
@@ -367,7 +367,7 @@ function [] = Do_Rotation(q, handles)
 
 q = q / norm(q); 
 
-% Accumultaive rotations commented 
+% Accumultaive rotations commented
 % this_quaternion = q; 
 % 
 %      % 3) compose this and last frame quats ---> "actual quaternion"
