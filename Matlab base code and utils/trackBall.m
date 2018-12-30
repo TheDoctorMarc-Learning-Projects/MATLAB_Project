@@ -367,18 +367,21 @@ function [] = Do_Rotation(q, handles)
 
 q = q / norm(q); 
 
-this_quaternion = q; 
+% Accumultaive rotations commented 
+% this_quaternion = q; 
+% 
+%      % 3) compose this and last frame quats ---> "actual quaternion"
+%       if(last_quaternion(1) ~= 0 && last_quaternion(2) ~= 0 && last_quaternion(3) ~= 0 && last_quaternion(4) ~= 0  )
+%      this_quaternion = quatmultiply(this_quaternion', last_quaternion')'
+%       end 
+%       
+%      % 4) reset last frame quaternion once the calculations are finished 
+%      last_quaternion = this_quaternion
+%      
+%      % 5) recalculate rot matrix from the actual quaternion
+%      R = Quat2RotMat(this_quaternion)
 
-     % 3) compose this and last frame quats ---> "actual quaternion"
-      if(last_quaternion(1) ~= 0 && last_quaternion(2) ~= 0 && last_quaternion(3) ~= 0 && last_quaternion(4) ~= 0  )
-     this_quaternion = quatmultiply(this_quaternion', last_quaternion')'
-      end 
-      
-     % 4) reset last frame quaternion once the calculations are finished 
-     last_quaternion = this_quaternion
-     
-     % 5) recalculate rot matrix from the actual quaternion
-     R = Quat2RotMat(this_quaternion)
+     R = Quat2RotMat(q)
      handles.Cube = RedrawCube(R,handles.Cube);
      
      
@@ -496,7 +499,7 @@ Update_All_Parametrizations_from_Quaternion(q,handles, 2);
 
 % Rotate cube 
  if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
-    actual_quaternion = q
+    %actual_quaternion = q
     Do_Rotation(q, handles); 
     
  end 
@@ -527,7 +530,7 @@ Update_All_Parametrizations_from_Quaternion(q,handles, 3);
 
 % Rotate cube 
  if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
-    this_quaternion = q
+    %this_quaternion = q
     Do_Rotation(q, handles); 
 
  end 
@@ -559,7 +562,7 @@ Update_All_Parametrizations_from_Quaternion(q,handles, 4);
 
 % Rotate cube 
  if(~isempty(q(1)) && ~isempty(q(2)) && ~isempty(q(3)) && ~isempty(q(4)))
-    this_quaternion = q
+    %this_quaternion = q
     Do_Rotation(this_quaternion, handles); 
 
  end 
